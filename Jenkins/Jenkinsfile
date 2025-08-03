@@ -7,7 +7,7 @@ pipeline {
         IMAGE_NAME = "ajeetchavhan/fullstack"
         AWS_REGION = "us-east-1"
         SONAR_URL = 'http://13.203.226.130:9000/'  // SonarQube URL
-        GIT_REPO_NAME = "updatedcomplete-cicd-devsecops"
+        GIT_REPO_NAME = "complete-cicd-devsecops"
         GIT_USER_NAME = "Ajeet-Chavhan"
     }
 
