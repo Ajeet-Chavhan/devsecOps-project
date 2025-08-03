@@ -72,13 +72,20 @@ pipeline {
                         git config user.email "ajitc8988@gmail.com"
                         git config user.name "${GIT_USER_NAME}"
 
-                        # Update deployment.yml with the correct Docker image version (Build Number)
+                       # Update deployment.yml with the correct Docker image version (Build Number)
                         sed -i "s|image: ajeetchavhan/fullstack:[^ ]*|image: ajeetchavhan/fullstack:${DOCKER_TAG}|g" argocd-manifest/deployment.yml
 
-                        # Commit and push the updated deployment file
+                        # Stage and commit the updated deployment file
                         git add argocd-manifest/deployment.yml
-                        git commit -m "Update deployment image to version ${DOCKER_TAG}"
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+
+                        # Only commit if there are changes
+                        if ! git diff --cached --quiet; then
+                            git commit -m "Update deployment image to version ${DOCKER_TAG}"
+                            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
+                        else
+                            echo "No changes to commit."
+                        fi
+
                     '''
                 }
             }
