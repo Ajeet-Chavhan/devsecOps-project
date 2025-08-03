@@ -4,9 +4,9 @@ pipeline {
     environment {
         // Parametrizing the environment variables
         DOCKER_TAG = "${BUILD_NUMBER}"
-        IMAGE_NAME = "ajeetchavahn/fullstack"
+        IMAGE_NAME = "ajeetchavhan/fullstack"
         AWS_REGION = "us-east-1"
-        SONAR_URL = 'http://3.84.96.251:9000/'  // SonarQube URL
+        SONAR_URL = 'http://13.203.226.130:9000/'  // SonarQube URL
         GIT_REPO_NAME = "complete-cicd-devsecops"
         GIT_USER_NAME = "ajitc8988@gmail.com"
     }
@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ajeetchavahn/complete-cicd-project-microdegree.git'
+                git branch: 'main', url: 'https://github.com/Ajeet-Chavhan/complete-cicd-devsecops.git'
             }
         }
 
@@ -73,7 +73,7 @@ pipeline {
                         git config user.name "${GIT_USER_NAME}"
 
                         # Update deployment.yml with the correct Docker image version (Build Number)
-                        sed -i "s|image: ajeetchavahn/fullstack:[^ ]*|image: ajeetchavahn/fullstack:${DOCKER_TAG}|g" argocd-manifest/deployment.yml
+                        sed -i "s|image: ajeetchavhan/fullstack:[^ ]*|image: ajeetchavhan/fullstack:${DOCKER_TAG}|g" argocd-manifest/deployment.yml
 
                         # Commit and push the updated deployment file
                         git add argocd-manifest/deployment.yml
@@ -110,9 +110,9 @@ pipeline {
                 emailext (
                     subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
                     body: body,
-                    to: 'manojdevopstest@gmail.com',
-                    from: 'contactmanojmech@gmail.com',
-                    replyTo: 'contactmanojmech@gmail.com',
+                    to: 'ajitc8988@gmail.com',
+                    from: 'contactajeet@gmail.com',
+                    replyTo: 'contactajeet@gmail.com',
                     mimeType: 'text/html',
                     attachmentsPattern: '**/target/sonar-report.html'  // Path to the SonarQube report file
                 )
