@@ -5,7 +5,7 @@ pipeline {
         DOCKER_TAG = "20250327"
         IMAGE_NAME = "ajeetchavahn/fullstack"
         AWS_REGION = "us-east-1"
-        CLUSTER_NAME = "microdegree-cluster"
+        CLUSTER_NAME = "Ajeet-Chavhan"
     }
 
     tools {
@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ajeetchavahn/complete-cicd-project-microdegree.git'
+                git branch: 'main', url: 'https://github.com/ajeetchavahn/devOps-project.git'
             }
         }
 
@@ -76,7 +76,7 @@ pipeline {
         
         stage('Deploy To Kubernetes') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'microdegree-cluster', contextName: '', credentialsId: 'kube', namespace: 'microdegree', restrictKubeConfigAccess: false, serverUrl: 'https://E00BC60076C20B56479850D48D8E35F5.gr7.us-east-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: 'Ajeet-Chavhan', contextName: '', credentialsId: 'kube', namespace: 'microdegree', restrictKubeConfigAccess: false, serverUrl: 'https://E00BC60076C20B56479850D48D8E35F5.gr7.us-east-1.eks.amazonaws.com') {
                     sh "kubectl get pods -n microdegree"
                     sh "kubectl apply -f deployment.yml -n microdegree"
                 }
@@ -85,7 +85,7 @@ pipeline {
 
         stage('Verify the Deployment') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'microdegree-cluster', contextName: '', credentialsId: 'kube', namespace: 'microdegree', restrictKubeConfigAccess: false, serverUrl: 'https://E00BC60076C20B56479850D48D8E35F5.gr7.us-east-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: 'Ajeet-Chavhan', contextName: '', credentialsId: 'kube', namespace: 'microdegree', restrictKubeConfigAccess: false, serverUrl: 'https://E00BC60076C20B56479850D48D8E35F5.gr7.us-east-1.eks.amazonaws.com') {
                     sh "kubectl get pods -n microdegree"
                     sh "kubectl get svc -n microdegree"
                 }
@@ -120,7 +120,7 @@ pipeline {
                     body: body,
                     to: 'prajwalhanchinal917@gmail.com,abhishekabinavs@gmail.com',
                     from: 'manojdevopstest@gmail.com',
-                    replyTo: 'manojdevopstest@gmail.com',
+                    replyTo: 'ajitc8988@gmail.com',
                     mimeType: 'text/html',
                     attachmentsPattern: 'trivy-image-report.html'
                 )
